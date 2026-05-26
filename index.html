@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNEAKER PLATFORM - F.C.R.B. Inspired</title>
+    <style>
+        /* =========================================
+           Reset & Base Variables
+        ========================================= */
+        :root {
+            --color-black: #000000;
+            --color-white: #ffffff;
+            --color-gray: #888888;
+            --color-light-gray: #e5e5e5;
+            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --header-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-white);
+            color: var(--color-black);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+            text-transform: uppercase;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+            outline: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* =========================================
+           Typography & Utilities
+        ========================================= */
+        .h1 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; letter-spacing: 0.1em; line-height: 1.1; }
+        .h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: 0.1em; }
+        .h3 { font-size: 1.25rem; font-weight: 700; letter-spacing: 0.05em; }
+        .text-sm { font-size: 0.75rem; letter-spacing: 0.05em; font-weight: 400; color: var(--color-gray); }
+        .font-bold { font-weight: 700; }
+        
+        .section-padding { padding: 4rem 5%; }
+        .border-top { border-top: 1px solid var(--color-black); }
+        .border-bottom { border-bottom: 1px solid var(--color-black); }
+        
+        .btn-solid {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            padding: 1rem 2rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            border: 1px solid var(--color-black);
+            width: 100%;
+        }
+        .btn-solid:hover {
+            background-color: var(--color-white);
+            color: var(--color-black);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-white);
+            color: var(--color-black);
+            padding: 1rem 2rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            border: 1px solid var(--color-black);
+            width: 100%;
+        }
+        .btn-outline:hover {
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+
+        /* =========================================
+           Header (Navigation)
+        ========================================= */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-black);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            transition: opacity 0.3s ease;
+        }
+        .icon-btn:hover {
+            opacity: 0.5;
+        }
+        .icon-btn svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--color-black);
+            stroke-width: 1.5;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* =========================================
+           View Management (SPA-like)
+        ========================================= */
+        main {
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+        .view {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================
+           1. Home View
+        ========================================= */
+        /* Hero Section */
+        .hero {
+            height: calc(100vh - var(--header-height));
+            position: relative;
+            background-color: var(--color-light-gray);
+            overflow: hidden;
+            border-bottom: 1px solid var(--color-black);
+        }
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 60%;
+        }
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            transform: translateY(-50%);
+            color: var(--color-white);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            max-width: 600px;
+        }
+
+        /* Brand Grid Section */
+        .brand-section {
+            border-bottom: 1px solid var(--color-black);
+        }
+        .brand-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 2rem 5%;
+            border-bottom: 1px solid var(--color-black);
+        }
+        .outlink-btn {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            transition: opacity 0.3s;
+        }
+        .outlink-btn:hover { opacity: 0.5; }
+
+        /* Solid Grid System */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1px; /* border illusion */
+            background-color: var(--color-black);
+        }
+        
+        .product-card {
+            background-color: var(--color-white);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-img-wrapper {
+            position: relative;
+            padding-top: 100%; /* 1:1 Aspect Ratio */
+            overflow: hidden;
+        }
+        .product-img-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .product-card:hover .product-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-top: 1px solid var(--color-black);
+        }
+        .product-name {
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+        }
+        .product-price {
+            font-weight: 700;
+        }
+
+        /* =========================================
+           2. Detail View
+        ========================================= */
+        .detail-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: calc(100vh - var(--header-height));
+        }
+        @media (min-width: 900px) {
+            .detail-container { grid-template-columns: 1fr 1fr; }
+        }
+
+        .detail-image {
+            border-right: 1px solid var(--color-black);
+            border-bottom: 1px solid var(--color-black);
+            background-color: var(--color-light-gray);
+            position: relative;
+        }
+        .detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top:0; left:0;
+        }
+        /* Maintain aspect ratio on mobile */
+        @media (max-width: 899px) {
+            .detail-image { padding-top: 100%; }
+        }
+
+        .detail-info {
+            padding: 3rem 5%;
+            display: flex;
+            flex-direction: column;
+        }
+        .detail-title {
+            margin-bottom: 1rem;
+        }
+        .detail-desc {
+            color: var(--color-gray);
+            font-size: 0.875rem;
+            margin-bottom: 3rem;
+            text-transform: none; /* keep description readable */
+        }
+
+        /* Customize UI */
+        .customize-section {
+            margin-bottom: 3rem;
+            border-top: 1px solid var(--color-black);
+            padding-top: 2rem;
+        }
+        .custom-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        .custom-label {
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+        .color-palette {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .color-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--color-black);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .color-dot:hover {
+            transform: scale(1.1);
+        }
+        .color-dot.active {
+            box-shadow: 0 0 0 2px var(--color-white), 0 0 0 4px var(--color-black);
+        }
+
+        .action-buttons {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* =========================================
+           3. My Page View
+        ========================================= */
+        .mypage-header {
+            padding: 4rem 5%;
+            border-bottom: 1px solid var(--color-black);
+            text-align: center;
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+        .point-display {
+            margin: 2rem 0;
+        }
+        .point-value {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .mypage-content {
+            padding: 4rem 5%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Tracking Status Bar */
+        .tracking-module {
+            margin-bottom: 4rem;
+        }
+        .module-title {
+            margin-bottom: 2rem;
+            font-weight: 700;
+            border-bottom: 1px solid var(--color-black);
+            padding-bottom: 0.5rem;
+        }
+
+        .tracking-bar {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            padding-top: 20px;
+        }
+        .tracking-bar::before {
+            content: '';
+            position: absolute;
+            top: 25px; /* center of circle */
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-light-gray);
+            z-index: 1;
+        }
+        .tracking-bar::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 0;
+            width: 50%; /* Current progress */
+            height: 2px;
+            background-color: var(--color-black);
+            z-index: 1;
+            transition: width 0.5s ease;
+        }
+
+        .tracking-step {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 25%;
+        }
+        .step-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--color-light-gray);
+            border: 2px solid var(--color-white);
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+        .tracking-step.completed .step-circle,
+        .tracking-step.current .step-circle {
+            background-color: var(--color-black);
+            box-shadow: 0 0 0 2px var(--color-black);
+            border: 2px solid var(--color-white);
+        }
+        .tracking-step.current .step-circle {
+            transform: scale(1.3);
+        }
+        .step-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--color-gray);
+            text-align: center;
+        }
+        .tracking-step.completed .step-label,
+        .tracking-step.current .step-label {
+            color: var(--color-black);
+        }
+
+        /* =========================================
+           4. Lottery View
+        ========================================= */
+        #view-lottery {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            min-height: calc(100vh - var(--header-height));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 5%;
+            text-align: center;
+            position: relative;
+        }
+        .lottery-content {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+        }
+        .lottery-btn {
+            background-color: var(--color-white);
+            color: var(--color-black);
+            padding: 1.5rem 4rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-top: 3rem;
+            border: 1px solid var(--color-white);
+            transition: all 0.3s ease;
+        }
+        .lottery-btn:hover {
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+        .lottery-result {
+            display: none;
+            margin-top: 2rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-white);
+            letter-spacing: 0.1em;
+            border: 1px solid var(--color-white);
+            padding: 1rem;
+        }
+        .lottery-result.show {
+            display: inline-block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Footer minimal */
+        footer {
+            border-top: 1px solid var(--color-black);
+            padding: 2rem 5%;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo" id="nav-home">SNEAKER.OBJ</div>
+        <div class="nav-icons">
+            <button class="icon-btn" aria-label="Search">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </button>
+            <button class="icon-btn" aria-label="Region">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+            </button>
+            <button class="icon-btn" id="nav-mypage" aria-label="My Page">
+                <svg viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </button>
+            <button class="icon-btn" aria-label="Cart">
+                <svg viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- ==========================================
+             1. HOME VIEW (Active by default)
+        =========================================== -->
+        <div id="view-home" class="view active">
+            <!-- Hero Image -->
+            <section class="hero">
+                <img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?q=80&w=2000&auto=format&fit=crop" alt="Hero Sneaker">
+                <div class="hero-content">
+                    <h1 class="h1">THE NEW<br>STANDARD.</h1>
+                    <p class="h3" style="margin-top: 1rem;">LATEST STREET ARCHIVES</p>
+                </div>
+            </section>
+
+            <!-- Brand Section 1 -->
+            <section class="brand-section">
+                <div class="brand-header">
+                    <div>
+                        <div class="text-sm">FEATURED BRAND</div>
+                        <h2 class="h2">N-SERIES</h2>
+                    </div>
+                    <a href="#" class="outlink-btn">OFFICIAL SITE OUTLINK</a>
+                </div>
+                <!-- Grid Layout (Solid Border Style) -->
+                <div class="product-grid">
+                    <!-- Product Card -->
+                    <div class="product-card js-product-link">
+                        <div class="product-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1579338559194-a162d19bf842?q=80&w=800&auto=format&fit=crop" alt="Sneaker High">
+                        </div>
+                        <div class="product-info">
+                            <div>
+                                <div class="product-name">MODEL-X HIGH</div>
+                                <div class="text-sm">MENS / LIFESTYLE</div>
+                            </div>
+                            <div class="product-price">¥20,500</div>
+                        </div>
+                    </div>
+                    <!-- Product Card -->
+                    <div class="product-card js-product-link">
+                        <div class="product-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1584735174965-48c48d47fe9b?q=80&w=800&auto=format&fit=crop" alt="Sneaker Dunk">
+                        </div>
+                        <div class="product-info">
+                            <div>
+                                <div class="product-name">AIR D-LOW</div>
+                                <div class="text-sm">UNISEX / SKATE</div>
+                            </div>
+                            <div class="product-price">¥14,000</div>
+                        </div>
+                    </div>
+                    <!-- Product Card -->
+                    <div class="product-card js-product-link">
+                        <div class="product-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1552346154-21d32810baa3?q=80&w=800&auto=format&fit=crop" alt="Sneaker Black">
+                        </div>
+                        <div class="product-info">
+                            <div>
+                                <div class="product-name">STEALTH LOW</div>
+                                <div class="text-sm">MENS / RUNNING</div>
+                            </div>
+                            <div class="product-price">¥16,800</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Brand Section 2 -->
+            <section class="brand-section">
+                <div class="brand-header">
+                    <div>
+                        <div class="text-sm">ARCHIVE COLLECTION</div>
+                        <h2 class="h2">A-STUDIO</h2>
+                    </div>
+                    <a href="#" class="outlink-btn">OFFICIAL SITE OUTLINK</a>
+                </div>
+                <div class="product-grid">
+                    <div class="product-card js-product-link">
+                        <div class="product-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?q=80&w=800&auto=format&fit=crop" alt="Sneaker Chunky">
+                        </div>
+                        <div class="product-info">
+                            <div>
+                                <div class="product-name">CHUNKY DAD 90</div>
+                                <div class="text-sm">WOMENS / LIFESTYLE</div>
+                            </div>
+                            <div class="product-price">¥15,000</div>
+                        </div>
+                    </div>
+                     <div class="product-card js-product-link">
+                        <div class="product-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?q=80&w=800&auto=format&fit=crop" alt="Sneaker Classic">
+                        </div>
+                        <div class="product-info">
+                            <div>
+                                <div class="product-name">RETRO LOW OG</div>
+                                <div class="text-sm">MENS / CLASSIC</div>
+                            </div>
+                            <div class="product-price">¥18,000</div>
+                        </div>
+                    </div>
+                    <!-- 追加: 3つ目のスニーカー (空白埋め用) -->
+                    <div class="product-card js-product-link">
+                        <div class="product-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=800&auto=format&fit=crop" alt="Sneaker Sport">
+                        </div>
+                        <div class="product-info">
+                            <div>
+                                <div class="product-name">SPORT MAX</div>
+                                <div class="text-sm">UNISEX / TRAINING</div>
+                            </div>
+                            <div class="product-price">¥19,500</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==========================================
+             2. DETAIL & CUSTOMIZE VIEW
+        =========================================== -->
+        <div id="view-detail" class="view">
+            <div class="detail-container">
+                <!-- Left: Large Image -->
+                <div class="detail-image">
+                    <img id="detail-main-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop" alt="Product Detail">
+                </div>
+                
+                <!-- Right: Info & Customize -->
+                <div class="detail-info">
+                    <div class="text-sm">N-SERIES</div>
+                    <h1 class="h1 detail-title">MODEL-X RED</h1>
+                    <div class="h3" style="margin-bottom: 2rem;">¥18,500 <span class="text-sm">TAX INCL.</span></div>
+                    
+                    <p class="detail-desc">
+                        A seamless blend of street aesthetics and premium functionality. Features a breathable knit upper, responsive cushioning, and a structured heel clip for ultimate stability. Redefine your daily rotation.
+                    </p>
+
+                    <!-- Customize UI Dummy -->
+                    <div class="customize-section">
+                        <h3 class="h3" style="margin-bottom: 1.5rem;">CUSTOMIZE STUDIO</h3>
+                        
+                        <div class="custom-row">
+                            <span class="custom-label">UPPER COLOR</span>
+                            <div class="color-palette">
+                                <div class="color-dot active" style="background: #e63946;"></div>
+                                <div class="color-dot" style="background: #111111;"></div>
+                                <div class="color-dot" style="background: #f1faee;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="custom-row">
+                            <span class="custom-label">SOLE COLOR</span>
+                            <div class="color-palette">
+                                <div class="color-dot active" style="background: #ffffff; border-color:#ccc;"></div>
+                                <div class="color-dot" style="background: #111111;"></div>
+                                <div class="color-dot" style="background: #e9c46a;"></div>
+                            </div>
+                        </div>
+
+                        <div class="custom-row">
+                            <span class="custom-label">LACES</span>
+                            <div class="color-palette">
+                                <div class="color-dot active" style="background: #111111;"></div>
+                                <div class="color-dot" style="background: #ffffff; border-color:#ccc;"></div>
+                                <div class="color-dot" style="background: #e63946;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn-outline">SAVE DESIGN</button>
+                        <button class="btn-solid">ADD TO CART - ¥18,500</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             3. MY PAGE VIEW
+        =========================================== -->
+        <div id="view-mypage" class="view">
+            <div class="mypage-header">
+                <div class="text-sm" style="color:var(--color-gray)">MEMBER STATUS: BLACK TIER</div>
+                <h1 class="h2" style="margin-top: 1rem;">MY ACCOUNT</h1>
+                
+                <div class="point-display">
+                    <div class="text-sm" style="color:var(--color-gray)">AVAILABLE POINTS</div>
+                    <div class="point-value">12,450<span style="font-size: 1.5rem; margin-left: 5px;">PT</span></div>
+                </div>
+                
+                <button id="btn-enter-lottery" class="btn-outline" style="max-width: 300px; color: var(--color-white); background: transparent; border-color: var(--color-white);">
+                    ENTER SNEAKER LOTTERY
+                </button>
+            </div>
+
+            <div class="mypage-content">
+                <!-- Order Tracking UI -->
+                <div class="tracking-module">
+                    <h3 class="module-title">ORDER TRACKING: #FRB-90210</h3>
+                    
+                    <div class="tracking-bar">
+                        <!-- Step 1 -->
+                        <div class="tracking-step completed">
+                            <div class="step-circle"></div>
+                            <div class="step-label">ORDERED<br><span style="font-weight:400">OCT 12</span></div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="tracking-step completed">
+                            <div class="step-circle"></div>
+                            <div class="step-label">SHIPPED<br><span style="font-weight:400">OCT 13</span></div>
+                        </div>
+                        <!-- Step 3 (Current) -->
+                        <div class="tracking-step current">
+                            <div class="step-circle"></div>
+                            <div class="step-label">IN TRANSIT<br><span style="font-weight:400">OCT 14</span></div>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="tracking-step">
+                            <div class="step-circle"></div>
+                            <div class="step-label">DELIVERED<br><span style="font-weight:400">EST. OCT 15</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dummy History -->
+                <div class="tracking-module" style="margin-top: 5rem;">
+                    <h3 class="module-title">RECENT ORDERS</h3>
+                    <div style="border-bottom: 1px solid var(--color-black); padding: 1rem 0; display:flex; justify-content:space-between;">
+                        <div class="font-bold">#FRB-88102</div>
+                        <div class="text-sm">DELIVERED</div>
+                    </div>
+                    <div style="border-bottom: 1px solid var(--color-black); padding: 1rem 0; display:flex; justify-content:space-between;">
+                        <div class="font-bold">#FRB-75391</div>
+                        <div class="text-sm">DELIVERED</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             4. LOTTERY VIEW
+        =========================================== -->
+        <div id="view-lottery" class="view">
+            <div class="lottery-content">
+                <div class="text-sm" style="color: var(--color-gray); margin-bottom: 1rem;">EXCLUSIVE EVENT</div>
+                <h1 class="h1">SNEAKER<br>LOTTERY</h1>
+                <p style="margin: 2rem 0; font-size: 0.875rem; letter-spacing: 0.1em; color: var(--color-gray); line-height: 1.8; text-transform: none;">
+                    Use your points to enter the draw for limited archive models. Winners will be notified via email.
+                </p>
+                <div style="font-size: 2rem; font-weight: 700; letter-spacing: 0.1em;">
+                    1,000 <span style="font-size: 1rem; font-weight: 400;">PT / DRAW</span>
+                </div>
+                <button class="lottery-btn" id="btn-draw">DRAW NOW</button>
+                <div style="margin-top: 1rem;">
+                    <div class="lottery-result" id="lottery-message"></div>
+                </div>
+                <div style="margin-top: 4rem;">
+                    <button class="btn-outline" id="btn-back-mypage" style="background: transparent; border-color: var(--color-gray); color: var(--color-gray); width: auto;">BACK TO MY PAGE</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 SNEAKER.OBJ ALL RIGHTS RESERVED.
+    </footer>
+
+    <!-- JavaScript for View Switching & Interaction -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Function to switch views
+            const switchView = (targetViewId) => {
+                // Hide all views
+                document.querySelectorAll('.view').forEach(view => {
+                    view.classList.remove('active');
+                });
+                // Show target view
+                document.getElementById(targetViewId).classList.add('active');
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            // Header Logo click -> Home
+            document.getElementById('nav-home').addEventListener('click', () => {
+                switchView('view-home');
+            });
+
+            // User Icon click -> My Page
+            document.getElementById('nav-mypage').addEventListener('click', () => {
+                switchView('view-mypage');
+            });
+
+            // Enter Lottery click -> Lottery View
+            document.getElementById('btn-enter-lottery').addEventListener('click', () => {
+                switchView('view-lottery');
+                document.getElementById('lottery-message').classList.remove('show'); // Reset message
+            });
+
+            // Draw Lottery button
+            document.getElementById('btn-draw').addEventListener('click', () => {
+                const msg = document.getElementById('lottery-message');
+                msg.innerText = 'DRAWING...';
+                msg.classList.add('show');
+                msg.style.borderColor = 'var(--color-white)';
+                msg.style.color = 'var(--color-white)';
+                
+                // Simulate lottery result
+                setTimeout(() => {
+                    const won = Math.random() > 0.5;
+                    msg.innerText = won ? '🎉 YOU WON: ARCHIVE DUNK LOW!' : 'TRY AGAIN NEXT TIME.';
+                }, 1500);
+            });
+
+            // Back to My Page click
+            document.getElementById('btn-back-mypage').addEventListener('click', () => {
+                switchView('view-mypage');
+            });
+
+            // Product Cards click -> Detail View
+            document.querySelectorAll('.js-product-link').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // Prevent default if it was an anchor
+                    e.preventDefault();
+                    
+                    // Simple logic to pass clicked image to detail view
+                    const imgSrc = card.querySelector('img').src;
+                    const title = card.querySelector('.product-name').innerText;
+                    const price = card.querySelector('.product-price').innerText;
+                    
+                    document.getElementById('detail-main-img').src = imgSrc;
+                    document.querySelector('.detail-title').innerText = title;
+                    document.querySelector('.detail-info .h3').innerHTML = `${price} <span class="text-sm">TAX INCL.</span>`;
+                    document.querySelector('.btn-solid').innerText = `ADD TO CART - ${price}`;
+
+                    switchView('view-detail');
+                });
+            });
+
+            // Customize UI logic (Dummy toggle active state)
+            document.querySelectorAll('.color-palette').forEach(palette => {
+                const dots = palette.querySelectorAll('.color-dot');
+                dots.forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        dots.forEach(d => d.classList.remove('active'));
+                        dot.classList.add('active');
+                    });
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
