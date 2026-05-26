@@ -811,6 +811,77 @@
     <!-- JavaScript for View Switching & Interaction -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+    
+    // 画面切り替え関数
+    const switchView = (targetViewId) => {
+        document.querySelectorAll('.view').forEach(view => {
+            view.classList.remove('active');
+        });
+        document.getElementById(targetViewId).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // ヘッダーロゴクリック -> ホーム
+    document.getElementById('nav-home').addEventListener('click', () => {
+        switchView('view-home');
+    });
+
+    // ユーザーアイコンクリック -> マイページ
+    document.getElementById('nav-mypage').addEventListener('click', () => {
+        switchView('view-mypage');
+    });
+
+    // ★追加：商品クリック時に詳細画面の「写真」と「テキスト」を動的に書き換える
+    document.querySelectorAll('.js-product-link').forEach(card => {
+        card.addEventListener('click', () => {
+            // クリックされたカードから画像URL、商品名、価格を取得
+            const imgSrc = card.querySelector('.product-img-wrapper img').src;
+            const productName = card.querySelector('.product-name').textContent;
+            const productPrice = card.querySelector('.product-price').textContent;
+            const brandName = card.closest('.brand-section').querySelector('.h2').textContent;
+
+            // 詳細画面の要素を書き換え
+            document.getElementById('detail-main-img').src = imgSrc;
+            document.querySelector('#view-detail .text-sm').textContent = brandName;
+            document.querySelector('#view-detail .detail-title').textContent = productName;
+            document.querySelector('#view-detail .h3').innerHTML = `${productPrice} <span class="text-sm">TAX INCL.</span>`;
+            document.querySelector('#view-detail .btn-solid').textContent = `ADD TO CART - ${productPrice}`;
+
+            // 詳細画面へ移動
+            switchView('view-detail');
+        });
+    });
+
+    // マイページの「抽選に参加」ボタン
+    document.getElementById('btn-enter-lottery').addEventListener('click', () => {
+        switchView('view-lottery');
+    });
+
+    // 抽選画面からマイページに戻る
+    document.getElementById('btn-back-mypage').addEventListener('click', () => {
+        switchView('view-mypage');
+    });
+
+    // 抽選ロジック
+    document.getElementById('btn-draw').addEventListener('click', () => {
+        const msgElement = document.getElementById('lottery-message');
+        msgElement.classList.remove('show');
+        
+        setTimeout(() => {
+            const isWin = Math.random() > 0.5;
+            if (isWin) {
+                msgElement.textContent = "WINNER - GOT 'EM";
+                msgElement.style.borderColor = "#ffffff";
+            } else {
+                msgElement.textContent = "SORRY, NOT SELECTED.";
+                msgElement.style.borderColor = "var(--color-gray)";
+            }
+            msgElement.classList.add('show');
+        }, 1000);
+    });
+});
+        
+        document.addEventListener('DOMContentLoaded', () => {
             
             // Function to switch views
             const switchView = (targetViewId) => {
