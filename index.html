@@ -516,6 +516,16 @@
             font-size: 0.75rem;
             font-weight: 700;
         }
+
+         .outlink-btn:hover { opacity: 0.5; }
+
+        /* Solid Grid System */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1px; /* border illusion */
+            background-color: var(--color-black);
+        }
     </style>
 </head>
 <body>
@@ -761,6 +771,56 @@
                     <div class="action-buttons">
                         <button class="btn-outline">SAVE DESIGN</button>
                         <button class="btn-solid">ADD TO CART - ¥18,500</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <div class="product-info">
+                            <div>
+                                <div class="product-name">STEALTH LOW</div>
+                                <div class="text-sm">MENS / RUNNING</div>
+                            </div>
+                            <div class="product-price">¥16,800</div>
+                        </div>
+                    </div>
+                    <!-- 追加: 4つ目のスニーカー -->
+                    <div class="customize-section">
+                        <h3 class="h3" style="margin-bottom: 1.5rem;">CUSTOMIZE STUDIO</h3>
+                        
+                        <div class="custom-row">
+                            <span class="custom-label">UPPER COLOR</span>
+                            <div class="color-palette">
+                                <div class="color-dot active" style="background: #e63946;"></div>
+                                <div class="color-dot" style="background: #111111;"></div>
+                                <div class="color-dot" style="background: #f1faee;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="custom-row">
+                            <span class="custom-label">SOLE COLOR</span>
+                            <div class="color-palette">
+                                <div class="color-dot active" style="background: #ffffff; border-color:#ccc;"></div>
+                                <div class="color-dot" style="background: #111111;"></div>
+                                <div class="color-dot" style="background: #e9c46a;"></div>
+                            </div>
+                        </div>
+
+                        <div class="custom-row">
+                            <span class="custom-label">LACES</span>
+                            <div class="color-palette">
+                                <div class="color-dot active" style="background: #111111;"></div>
+                                <div class="color-dot" style="background: #ffffff; border-color:#ccc;"></div>
+                                <div class="color-dot" style="background: #e63946;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn-outline">SAVE DESIGN</button>
+                        <button class="btn-solid">ADD TO CART - ¥18,500</button>
+                        <!-- 楽天へ飛ぶリンクボタンを追加 -->
+                        <a href="https://www.rakuten.co.jp/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="background-color: #bf0000; color: white; border-color: #bf0000;">BUY ON RAKUTEN</a>
                     </div>
                 </div>
             </div>
